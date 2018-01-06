@@ -1,0 +1,53 @@
+ <!DOCTYPE html>
+<html lang="pl-PL">
+<head>
+<meta charset="UTF-8">
+<title>ONP</title>
+<script src="./js/onp.js"></script>
+<script src="./js/jquery.js"></script>
+<link href='./style/bootstrap.min.css' rel='stylesheet' />
+</head>
+<body>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
+						<h1 class="page-header text-center">Konwersja notacji nawiasowej na Odwrotną Notację Polską</h1>
+		  <div class="form-group">
+			  <div class="col-sm-12">
+				<label for="name" class="control-label">Wpisz wyrażenie w notacji nawiasowej</label>
+				</div>
+				<div class="col-sm-12">
+					<input type="text" class="form-control" id="wyrazenie" name="wyrazenie" placeholder="((2*5+1)/2)">
+				</div>
+				<div class="col-sm-12 klawisz-przeksztalc">
+					<input id="klawisz" name="klawisz" type="button" value="Przekształć" class="btn btn-primary">
+				</div>
+			</div>
+		</div>
+	 </div>
+	 <div class="row">
+		<div class="col-md-6 col-md-offset-3">
+		<div hidden class="col-sm-12 pokaz-wartosc">
+				<h4 class="page-header text-center">Wartość wyrażenia: </h4>
+				<div class="wartosc-postfiks"></div>
+		</div>
+		</div>
+	</div>
+ </div>
+</body>
+</html> 
+<script>
+	$("#klawisz").click(function() {
+	var wyrazenieInfiks = $( "#wyrazenie" ).val().trim();
+	var wyrazeniePostfiks = przeksztalcInfiksDoPostfiks(wyrazenieInfiks);
+	$( ".wartosc-postfiks" ).empty();
+	$( ".wartosc-postfiks" ).append( wyrazeniePostfiks);
+	$( ".pokaz-wartosc" ).show();
+	});
+</script>
+<style>
+ .klawisz-przeksztalc{
+	margin-top:10px;
+ }
+</style>
