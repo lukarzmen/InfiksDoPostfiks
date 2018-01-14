@@ -1,5 +1,6 @@
 //(((a))+b+d)*(d+e) --> abd++de+*
 // ((2*5+1)/2) --> 25*1+2/
+//12+a*(b*c+d/e) --> 12abc*de/+*+
 
 function przeksztalcInfiksDoPostfiks(wyrazenie)
 {
