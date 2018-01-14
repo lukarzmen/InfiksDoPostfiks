@@ -1,3 +1,6 @@
+//(((a))+b+d)*(d+e) --> abd++de+*
+// ((2*5+1)/2) --> 25*1+2/
+
 function przeksztalcInfiksDoPostfiks(wyrazenie)
 {
 	var wyjscie = [];
@@ -13,10 +16,12 @@ function przeksztalcInfiksDoPostfiks(wyrazenie)
 	    else if (czyPrawyNawias(symbol))
 		{
 			var szczyt = stos[stos.length-1];
-			while(!czyStosPusty(stos) && szczyt !=  '(') 
+			while(!czyStosPusty(stos) && !czyLewyNawias(szczyt)) 
 			{
 				szczyt = stos.pop();
-				wyjscie.push(szczyt);
+				if(!czyLewyNawias(szczyt))
+					wyjscie.push(szczyt);
+				szczyt = stos[stos.length-1];
 			}
 			stos.pop(); //wywalenie '(' ze stosu
         }			
@@ -27,15 +32,12 @@ function przeksztalcInfiksDoPostfiks(wyrazenie)
 		else if(czyOperator(symbol))
 		{
 			var szczyt = stos[stos.length-1];
-			while(!czyStosPusty(stos))
+			while(!czyStosPusty(stos) && !czyLewyNawias(szczyt) && !czyOperatorMaWiekszyPriorytet(symbol, szczyt))
 			{
 				szczyt = stos.pop();
-				if(czyLewyNawias(szczyt))
-					break;
-				if(czyOperatorMaWiekszyPriorytet(symbol, szczyt))
-					break;
-				
-				wyjscie.push(szczyt);
+				if(!czyLewyNawias(szczyt))
+					wyjscie.push(szczyt);
+				szczyt = stos[stos.length-1];
 			}
 			stos.push(symbol);
 		}
@@ -105,6 +107,6 @@ function czyOperatorMaWiekszyPriorytet(operator1, operator2)
 {
 	var priorytet1 = priorytet(operator1);
 	var priorytet2 = priorytet(operator2);
-	var czyWiekszy = priorytet1 > priorytet2;
+	var czyWiekszy = priorytet1 >= priorytet2;
 	return czyWiekszy;
 }
